@@ -1,0 +1,22 @@
+<?php
+require('connect.php');
+require('function.php');
+$size=$_GET['size'];
+if(!isset($size) || empty($size)){
+	$query="SELECT * FROM advertising";
+}else{
+	$query="SELECT * FROM advertising ORDER BY id DESC LIMIT $size";
+}
+$rez=mysqli_query($con,$query);
+if($rez){
+	$mas['code']=1;
+	$mas['status']="OK";
+	while($row=mysqli_fetch_assoc($rez)){
+		$mas['data'][]=$row;
+	}
+	echo json_encode($mas, JSON_UNESCAPED_UNICODE);
+}else{
+	$mas['code']=3;
+	$mas['status']='Error';
+}
+?>

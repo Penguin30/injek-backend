@@ -1,0 +1,12 @@
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^\.]+)$ $1.php [NC,L]
+
+php_value session.gc_maxlifetime 2592000
+php_value session.cookie_lifetime 2592000
+
+RewriteCond %{REQUEST_URI} ^(.*)/{2,}(.*)$
+   # Проверяем, повторяется ли слеш (//) более двух раз.
+RewriteRule . %1/%2 [R=301,L]
+   # Исключаем все лишние слеши.
+
